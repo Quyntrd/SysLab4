@@ -114,7 +114,8 @@ int main(int argc, char *argv[]) {
     check(setsockopt(listen_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)));
 
     // Bind and listen
-    check(bind(listen_fd, (sockaddr*)&local_addr(static_cast<unsigned short>(port)), sizeof(sockaddr_in)));
+    sockaddr_in addr = local_addr(static_cast<unsigned short>(port));
+    check(bind(listen_fd, (sockaddr*)&addr, sizeof(sockaddr_in)));
     check(listen(listen_fd, SOMAXCONN));
 
     std::cout << "[INFO] Server listening on port " << port << std::endl;
